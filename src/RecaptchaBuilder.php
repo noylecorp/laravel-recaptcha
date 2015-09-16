@@ -21,9 +21,7 @@ class RecaptchaBuilder
         
         $options = $this->renameOptions($options);
         
-        return '<script src="https://www.google.com/recaptcha/api.js"></script>'
-              .'<div class="g-recaptcha" '.$this->html->attributes($options).'></div>'
-        ;
+        return '<div class="g-recaptcha"'.$this->html->attributes($options).'></div>';
     }
     
     public function renameOptions(array $options)
