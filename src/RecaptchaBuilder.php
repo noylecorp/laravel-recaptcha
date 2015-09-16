@@ -15,10 +15,10 @@ class RecaptchaBuilder
         $this->html = $html;
     }
 
-    public function widget($sitekey, array $options = [])
+    public function widget($siteKey, array $options = [])
     {
         if (!isset($options['sitekey'])) {
-            $options['sitekey'] = $sitekey;
+            $options['sitekey'] = $siteKey;
         }
 
         $options['class'] = 'g-recaptcha';
