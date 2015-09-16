@@ -8,18 +8,19 @@ class RecaptchaBuilder
 {
     protected $html;
 
+    protected $siteKey;
+
     protected $tagAttributes = ['sitekey', 'theme', 'type', 'size', 'tabindex', 'callback', 'expired-callback'];
 
-    public function __construct(HtmlBuilder $html)
+    public function __construct($siteKey, HtmlBuilder $html)
     {
         $this->html = $html;
+        $this->siteKey = $siteKey;
     }
 
-    public function widget($siteKey, array $options = [])
+    public function widget(array $options = [])
     {
-        if (!isset($options['sitekey'])) {
-            $options['sitekey'] = $siteKey;
-        }
+        $options['sitekey'] = $this->siteKey;
 
         $options['class'] = 'g-recaptcha';
 
