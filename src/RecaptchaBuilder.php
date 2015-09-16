@@ -15,7 +15,7 @@ class RecaptchaBuilder
         $this->html = $html;
     }
 
-    public function render($sitekey, array $options = [])
+    public function widget($sitekey, array $options = [])
     {
         if (!isset($options['sitekey'])) {
             $options['sitekey'] = $sitekey;

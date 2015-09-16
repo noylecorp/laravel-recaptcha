@@ -19,9 +19,9 @@ class RecaptchaBuilderTest extends PHPUnit_Framework_TestCase
         $this->recaptchaBuilder = new RecaptchaBuilder($this->htmlBuilder);
     }
 
-    public function testRender()
+    public function testWidget()
     {
-        $r1 = $this->recaptchaBuilder->render('my-site-key');
+        $r1 = $this->recaptchaBuilder->widget('my-site-key');
 
         $this->assertEquals('<div class="g-recaptcha" data-sitekey="my-site-key"></div>'.PHP_EOL, $r1);
     }
