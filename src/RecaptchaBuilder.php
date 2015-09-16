@@ -10,7 +10,7 @@ class RecaptchaBuilder
     
     public function __construct(HtmlBuilder $html)
     {
-        $this->html = $html
+        $this->html = $html;
     }
     
     public function render($sitekey, array $options = [])
@@ -21,7 +21,7 @@ class RecaptchaBuilder
         
         $options = $this->renameOptions($options);
         
-        return '<script src='https://www.google.com/recaptcha/api.js'></script>'
+        return '<script src="https://www.google.com/recaptcha/api.js"></script>'
               .'<div class="g-recaptcha" '.$this->html->attributes($options).'></div>'
         ;
     }
@@ -30,7 +30,7 @@ class RecaptchaBuilder
     {
         $renamed = [];
         
-        foreach($options as $k, $v) {
+        foreach($options as $k => $v) {
             $renamed['data-'.$k] = $v;
         }
         
