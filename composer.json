@@ -1,5 +1,5 @@
 {
-  "name": "noylecorp/recaptcha",
+  "name": "noylecorp/laravel-recaptcha",
   "description": "Laravel package for Google's ReCAPTCHA service",
   "keywords": ["laravel", "recaptcha"],
   "license": "MIT",
