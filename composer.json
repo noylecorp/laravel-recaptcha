@@ -22,5 +22,6 @@
     "psr-4": {
       "Noylecorp\\Recaptcha\\": "src/"
     }
-  }
+  },
+  "minimum-stability": "dev"
 }
