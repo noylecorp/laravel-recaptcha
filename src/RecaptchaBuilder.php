@@ -21,9 +21,16 @@ class RecaptchaBuilder
             $options['sitekey'] = $sitekey;
         }
 
+        $options['class'] = 'g-recaptcha';
+
         $this->renameOptions($options);
 
-        return '<div class="g-recaptcha"'.$this->html->attributes($options).'></div>';
+        return '<div'.$this->html->attributes($options).'></div>'.PHP_EOL;
+    }
+
+    public function script()
+    {
+        return $this->html->script('https://www.google.com/recaptcha/api.js');
     }
 
     public function renameOptions(array &$options)
