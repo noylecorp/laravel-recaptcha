@@ -31,6 +31,12 @@ class RecaptchaBuilderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('<div class="g-recaptcha" data-type="audio" data-sitekey="my-site-key"></div>'.PHP_EOL, $r3);
     }
 
+    public function testRecaptcha()
+    {
+        $r = $this->recaptchaBuilder->recaptcha();
+        $this->assertEquals('<script src="https://www.google.com/recaptcha/api.js"></script>'.PHP_EOL.'<div class="g-recaptcha" data-sitekey="my-site-key"></div>'.PHP_EOL, $r);
+    }
+
     public function testScript()
     {
         $script = $this->recaptchaBuilder->script();

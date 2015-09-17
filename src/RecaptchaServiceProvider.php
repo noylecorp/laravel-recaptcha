@@ -17,15 +17,7 @@ class RecaptchaServiceProvider extends ServiceProvider
             __DIR__.'/../config/recaptcha.php' => config_path('recaptcha.php'),
         ]);
 
-        // TODO: is there a better way to access services than the app() helper??
-
-        $this->app['form']->macro('recaptchaScript', function() {
-            return app('recaptcha_builder')->script();
-        });
-
-        $this->app['form']->macro('recaptchaWidget', function(array $options = []) {
-            return app('recaptcha_builder')->widget($options);
-        });
+        $this->registerMacros();
 
         $this->app['validator']->extend('recaptcha', function ($attribute, $value, $parameters) {
             return app('recaptcha_verifier')->verify($value);
@@ -45,6 +37,21 @@ class RecaptchaServiceProvider extends ServiceProvider
 
         $this->app->singleton('recaptcha_verifier', function($app) {
             return new RecaptchaVerifier($app['config']['recaptcha.site_secret']);
+        });
+    }
+
+    protected function registerMacros()
+    {
+        $this->app['form']->macro('recaptcha', function() {
+            return app('recaptcha_builder')->recaptcha();
+        });
+
+        $this->app['form']->macro('recaptcha_script', function() {
+            return app('recaptcha_builder')->script();
+        });
+
+        $this->app['form']->macro('recaptcha_widget', function(array $options = []) {
+            return app('recaptcha_builder')->widget($options);
         });
     }
 }

@@ -29,6 +29,11 @@ class RecaptchaBuilder
         return '<div'.$this->html->attributes($options).'></div>'.PHP_EOL;
     }
 
+    public function recaptcha(array $options = [])
+    {
+        return $this->script().$this->widget();
+    }
+
     public function script()
     {
         return $this->html->script('https://www.google.com/recaptcha/api.js');

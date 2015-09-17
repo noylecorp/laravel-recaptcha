@@ -21,7 +21,10 @@
   "autoload": {
     "psr-4": {
       "Noylecorp\\Recaptcha\\": "src/"
-    }
+    },
+    "files": [
+      "src/helpers.php"
+    ]
   },
   "minimum-stability": "dev"
 }

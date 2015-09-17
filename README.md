@@ -32,19 +32,26 @@ Finally, update `.env` with your reCAPTCHA site key and secret:
 
 This packages adds macros to the form builder service which allows you to easily create reCAPTCHA widgets using the `Form` facade:
 
-    {!! Form::recaptchaScript() !!}
-    {!! Form::recaptchaWidget() !!}
+    {!! Form::recaptcha() !!}
 
     <!-- Output: -->
 
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <div class="g-recaptcha" data-sitekey="my-site-key"></div>
 
-You can also pass options to the the `recaptchaWidget` function:
+You can also pass options to the the `recaptcha` function:
 
-    {!! Form::recaptchaWidget(['theme' => 'dark']) !!}
+    {!! Form::recaptcha(['theme' => 'dark']) !!}
 
 See [reCAPTCHA's documentation](https://developers.google.com/recaptcha/docs/display#render_param) for a full list of available options.
+
+The `recaptcha` function returns both the `<script>` and `<div>` tags necessary to to build a reCAPTCHA field, but it's also possible to insert those fields separately using the `recaptch_script` and `recaptcha_widget` functions:
+
+    {!! Form::recaptcha_script() !!}
+
+    // ...
+
+    {!! Form::recaptcha_widget() !!}
 
 ### Validating reCAPTCHA responses
 
