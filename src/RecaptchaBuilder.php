@@ -8,6 +8,8 @@ class RecaptchaBuilder
 {
     protected $html;
 
+    protected $recaptchaClass = 'g-recaptcha';
+
     protected $siteKey;
 
     protected $tagAttributes = ['sitekey', 'theme', 'type', 'size', 'tabindex', 'callback', 'expired-callback'];
@@ -22,7 +24,12 @@ class RecaptchaBuilder
     {
         $options['sitekey'] = $this->siteKey;
 
-        $options['class'] = 'g-recaptcha';
+        if (isset($options['class'])) {
+            $options['class'] .= ' '.$this->recaptchaClass;
+        }
+        else {
+            $options['class'] = $this->recaptchaClass;
+        }
 
         $this->renameOptions($options);
 
