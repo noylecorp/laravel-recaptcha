@@ -49,7 +49,7 @@ You can also pass in HTML attributes:
 
     {!! recaptcha(['id' => 'myrecaptcha']) !!}
 
-Or any of [reCAPTCHA's available options](https://developers.google.com/recaptcha/docs/display#render_param).
+Or any of [reCAPTCHA's available options](https://developers.google.com/recaptcha/docs/display#render_param):
 
     {!! recaptcha(['theme' => 'dark']) !!}
 
