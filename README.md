@@ -1,12 +1,16 @@
 # laravel-recaptcha
 
-Laravel package for Google reCAPTCHA, providing helper functions for creating reCAPTCHA fields and a service for validating responses.
+Laravel 5.1 package for Google reCAPTCHA, providing helper functions for creating reCAPTCHA fields and a service for validating responses.
+
+**Note:** This package uses reCAPTCHA API version 2.0
 
 ## Installation
 
 `noylecorp/laravel-recaptcha` requires the `laravelcollective/html` package. [Head on over to their site](http://laravelcollective.com/docs/5.1/html) for documentation on getting it installed.
 
-Once that's completed, you can begin by installing `noylecorp/laravel-recaptcha` with composer:
+You'll also need to [sign up for a reCAPTCHA key pair](https://www.google.com/recaptcha/admin) in order to finish installation and start using this package.
+
+Once those tasks are completed, install `noylecorp/laravel-recaptcha` with composer:
 
     composer require noylecorp/laravel-recaptcha dev-master
 
@@ -17,11 +21,11 @@ Next, add the service provider to your `config/app.php`:
         Noylecorp\Recaptcha\RecaptchaServiceProvider::class,
     ]
 
-Next, publish the package's configuration files to your application:
+Next, publish the package configuration file to your application:
 
-    php artisan vendor:publish
+    php artisan vendor:publish --provider="Noylecorp\Recaptcha\RecaptchaServiceProvider"
 
-Finally, update `.env` with your reCAPTCHA site key and secret:
+The file `recaptcha.php` gets copied into your configuration directory. The final installation step is to add your reCAPTCHA site and secret keys to your `.env` file:
 
     RECAPTCHA_SITE_KEY=your-site-key
     RECAPTCHA_SITE_SECRET=your-site-secret
@@ -34,18 +38,22 @@ You can easily create reCAPTCHA widgets using the `recaptcha()` helper function:
 
     {!! recaptcha() !!}
 
-    <!-- Output: -->
+    // outputs...
 
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <div class="g-recaptcha" data-sitekey="my-site-key"></div>
 
-You can also pass options to `recaptcha()`:
+You can also pass in HTML attributes:
+
+    {!! recaptcha(['id' => 'myrecaptcha']) !!}
+
+Or any of [reCAPTCHA's available options](https://developers.google.com/recaptcha/docs/display#render_param).
 
     {!! recaptcha(['theme' => 'dark']) !!}
 
-See [reCAPTCHA's documentation](https://developers.google.com/recaptcha/docs/display#render_param) for a full list of available options.
+    {!! recaptcha(['data-theme' => 'dark']) !!} // same thing
 
-The `recaptcha()` function returns both the `<script>` and `<div>` tags necessary to to build a reCAPTCHA field. If you need more flexibility, it's also possible to insert those fields separately using the `recaptch_script()` and `recaptcha_widget()` functions:
+If you need to render the `<script>` and `<div>` tags for the reCAPTCHA widget separately, you can use the `recaptch_script()` and `recaptcha_widget()` functions:
 
     {!! recaptcha_script() !!}
 
@@ -59,7 +67,7 @@ All three functions, `recaptcha()`, `recaptcha_script()`, and `recaptcha_widget(
 
 ### Validating reCAPTCHA responses
 
-The simplest way to validate a reCAPTCHA field is using the added `recaptcha` rule:
+The simplest way to validate a reCAPTCHA field is by using the added `recaptcha` validation rule:
 
     // in a controller...
     $this->validate($request, [
