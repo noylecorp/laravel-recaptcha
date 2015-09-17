@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/noylecorp/laravel-recaptcha.svg)](https://travis-ci.org/noylecorp/laravel-recaptcha)
+
 # laravel-recaptcha
 
 Laravel package for Google reCAPTCHA, providing helper functions for creating reCAPTCHA fields and a service for validating responses.
