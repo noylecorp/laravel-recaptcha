@@ -53,7 +53,7 @@ The `recaptcha()` function returns both the `<script>` and `<div>` tags necessar
 
     {!! recaptcha_widget() !!}
 
-All three functions, `recaptch()`, `recaptch_script()`, and `recaptch_widget()`, can also be accessed through the `Form` facade:
+All three functions, `recaptcha()`, `recaptcha_script()`, and `recaptcha_widget()`, can also be accessed through the `Form` facade:
 
     {!! Form::recaptcha() !!}
 
