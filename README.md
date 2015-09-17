@@ -1,6 +1,6 @@
 # laravel-recaptcha
 
-Laravel package for Google's reCAPTCHA service
+Laravel package for Google reCAPTCHA, providing helper functions for creating reCAPTCHA fields and a service for validating responses.
 
 ## Installation
 
@@ -30,37 +30,49 @@ Finally, update `.env` with your reCAPTCHA site key and secret:
 
 ### Creating a reCAPTCHA widget
 
-This packages adds macros to the form builder service which allows you to easily create reCAPTCHA widgets using the `Form` facade:
+You can easily create reCAPTCHA widgets using the `recaptcha()` helper function:
 
-    {!! Form::recaptcha() !!}
+    {!! recaptcha() !!}
 
     <!-- Output: -->
 
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <div class="g-recaptcha" data-sitekey="my-site-key"></div>
 
-You can also pass options to the the `recaptcha` function:
+You can also pass options to `recaptcha()`:
 
-    {!! Form::recaptcha(['theme' => 'dark']) !!}
+    {!! recaptcha(['theme' => 'dark']) !!}
 
 See [reCAPTCHA's documentation](https://developers.google.com/recaptcha/docs/display#render_param) for a full list of available options.
 
-The `recaptcha` function returns both the `<script>` and `<div>` tags necessary to to build a reCAPTCHA field, but it's also possible to insert those fields separately using the `recaptch_script` and `recaptcha_widget` functions:
+The `recaptcha()` function returns both the `<script>` and `<div>` tags necessary to to build a reCAPTCHA field. If you need more flexibility, it's also possible to insert those fields separately using the `recaptch_script()` and `recaptcha_widget()` functions:
 
-    {!! Form::recaptcha_script() !!}
+    {!! recaptcha_script() !!}
 
     // ...
 
-    {!! Form::recaptcha_widget() !!}
+    {!! recaptcha_widget() !!}
+
+All three functions, `recaptch()`, `recaptch_script()`, and `recaptch_widget()`, can also be accessed through the `Form` facade:
+
+    {!! Form::recaptcha() !!}
 
 ### Validating reCAPTCHA responses
 
-This package also adds a `recaptcha` validation method, for use with Laravel's validation service:
+The simplest way to validate a reCAPTCHA field is using the added `recaptcha` rule:
 
     // in a controller...
     $this->validate($request, [
         'g-recaptcha-response' => 'required|recaptcha'
     ]);
+
+    // in a form request...
+    public function rules()
+    {
+        return [
+            'g-recaptcha-response' => 'required|recaptcha'
+        ];
+    }
 
 Or, you can access the service directly to do manual validation:
 
@@ -70,7 +82,3 @@ Or, you can access the service directly to do manual validation:
     else {
         // user failed reCAPTCHA
     }
-
-
-
-

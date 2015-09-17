@@ -17,7 +17,7 @@ class RecaptchaServiceProvider extends ServiceProvider
             __DIR__.'/../config/recaptcha.php' => config_path('recaptcha.php'),
         ]);
 
-        $this->registerMacros();
+        $this->addMacros();
 
         $this->app['validator']->extend('recaptcha', function ($attribute, $value, $parameters) {
             return app('recaptcha')->verify($value);
@@ -40,18 +40,23 @@ class RecaptchaServiceProvider extends ServiceProvider
         });
     }
 
-    protected function registerMacros()
+    /**
+     * Add macros to the form service
+     *
+     * @return void
+     */
+    protected function addMacros()
     {
         $this->app['form']->macro('recaptcha', function() {
-            return app('recaptcha_builder')->recaptcha();
+            return recaptcha();
         });
 
         $this->app['form']->macro('recaptcha_script', function() {
-            return app('recaptcha_builder')->script();
+            return recaptcha_script();
         });
 
         $this->app['form']->macro('recaptcha_widget', function(array $options = []) {
-            return app('recaptcha_builder')->widget($options);
+            return recaptcha_widget($options);
         });
     }
 }
