@@ -36,7 +36,7 @@ class RecaptchaServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton('recaptcha', function($app) {
-            return new RecaptchaVerifier($app['config']['recaptcha.site_secret']);
+            return new RecaptchaVerifier($app['config']['recaptcha.secret_key']);
         });
     }
 

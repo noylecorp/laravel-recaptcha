@@ -28,7 +28,7 @@ Next, publish the package configuration file to your application:
 The file `recaptcha.php` gets copied into your configuration directory. The final installation step is to add your reCAPTCHA site and secret keys to your `.env` file:
 
     RECAPTCHA_SITE_KEY=your-site-key
-    RECAPTCHA_SITE_SECRET=your-site-secret
+    RECAPTCHA_SECRET_KEY=your-secret-key
 
 ## Usage
 
