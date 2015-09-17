@@ -64,9 +64,7 @@ This package also adds a `recaptcha` validation method, for use with Laravel's v
 
 Or, you can access the service directly to do manual validation:
 
-    $recaptcha = app('recaptcha_verifier');
-
-    if ($recaptcha->verify($request->input('g-recaptcha-response'))) {
+    if (app('recaptcha')->verify($request->input('g-recaptcha-response'))) {
         // user passed reCAPTCHA
     }
     else {

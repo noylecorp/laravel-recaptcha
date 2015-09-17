@@ -20,7 +20,7 @@ class RecaptchaServiceProvider extends ServiceProvider
         $this->registerMacros();
 
         $this->app['validator']->extend('recaptcha', function ($attribute, $value, $parameters) {
-            return app('recaptcha_verifier')->verify($value);
+            return app('recaptcha')->verify($value);
         });
     }
 
@@ -35,7 +35,7 @@ class RecaptchaServiceProvider extends ServiceProvider
             return new RecaptchaBuilder($app['config']['recaptcha.site_key'], $app['html']);
         });
 
-        $this->app->singleton('recaptcha_verifier', function($app) {
+        $this->app->singleton('recaptcha', function($app) {
             return new RecaptchaVerifier($app['config']['recaptcha.site_secret']);
         });
     }

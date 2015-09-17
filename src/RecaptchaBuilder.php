@@ -31,7 +31,7 @@ class RecaptchaBuilder
 
     public function recaptcha(array $options = [])
     {
-        return $this->script().$this->widget();
+        return $this->script().$this->widget($options);
     }
 
     public function script()
