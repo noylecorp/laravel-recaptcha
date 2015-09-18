@@ -7,15 +7,47 @@ class RecaptchaVerifierTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         // See: https://developers.google.com/recaptcha/docs/faq?hl=en
+        $this->siteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
         $this->secretKey = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
-        $this->successResponse = '03AHJ_VuvRm7ZPgsy5DKbvbf3aBfXLwG3lHHWftZb1Qvo-tvq8w6UKvIGraLBi0wlbANUJpZLjfAELENnsy30IW1W01UbktlpDcsAJh-ZtYtaNM9g542FUwPWJAEQOeSDqHIiMxdJDPv8OXlxUwUpeDywxvk6qHUOeHb4n3tX_AFGNC1NhSPGCLHBx2kIux4sJjfLUbuXK86ZRbUnbfw8uPSLPdmZs4CubdHEK4FKzQJLoiglZAya1pno7H8K6AbMdaB2rsJ74NUxOQFGG6AFtqXx2OPJq1lCoTaJL5ijCkGVzPpQfRou7ekUfct6iOnoA5uX5ohA5K2w58D3RPtauPEilKuH7X-y-AB0GXxJDcnTxDmN95_7j8GU';
+        $this->apiFallback='https://www.google.com/recaptcha/api/fallback?k='.$this->siteKey;
 
         $this->verifier = new RecaptchaVerifier($this->secretKey);
     }
 
     public function testVerify()
     {
-        $result = $this->verifier->verify($this->successResponse);
+        $result = $this->verifier->verify($this->getGCatpchaResponse());
         $this->assertTrue($result);
+    }
+
+    protected function getGCatpchaResponse()
+    {
+        $captchaForm = new DOMDocument();
+        $captchaForm->loadHTMLFile($this->apiFallback);
+
+        $payload = [];
+
+        foreach($captchaForm->getElementsByTagName('input') as $input) {
+            if ('c' == $input->getAttribute('name')) {
+                $payload['c'] = $input->getAttribute('value');
+                break;
+            }
+        }
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_URL, $this->apiFallback);
+        curl_setopt($ch, CURLOPT_POST, count($payload));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($payload));
+
+        $result = curl_exec($ch);
+
+        $captchaResponse = new DOMDocument();
+        $captchaResponse->loadHTML($result);
+
+        foreach($captchaResponse->getElementsByTagName('textarea') as $textarea) {
+            return $textarea->nodeValue;
+        }
     }
 }
