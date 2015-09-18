@@ -14,7 +14,7 @@ You'll also need to [sign up for a reCAPTCHA key pair](https://www.google.com/re
 
 Once those tasks are completed, install `noylecorp/laravel-recaptcha` with composer:
 
-    composer require noylecorp/laravel-recaptcha dev-master
+    composer require noylecorp/laravel-recaptcha
 
 Next, add the service provider to your `config/app.php`:
 
