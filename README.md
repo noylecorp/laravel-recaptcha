@@ -67,6 +67,10 @@ All three functions, `recaptcha()`, `recaptcha_script()`, and `recaptcha_widget(
 
     {!! Form::recaptcha() !!}
 
+Or, if you don't want to use any of those helper functions, you can use `recaptcha_site_key()` to grab the site key for your own custom markup:
+
+    <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key() }}"></div>
+
 ### Validating reCAPTCHA responses
 
 The simplest way to validate a reCAPTCHA field is by using the added `recaptcha` validation rule:

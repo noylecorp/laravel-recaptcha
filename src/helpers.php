@@ -14,6 +14,13 @@ if (! function_exists('recaptcha_script')) {
     }
 }
 
+if (! function_exists('recaptcha_site_key')) {
+    function recaptcha_site_key()
+    {
+        return app('config')['recaptcha.site_key'];
+    }
+}
+
 if (! function_exists('recaptcha_widget')) {
     function recaptcha_widget(array $options = [])
     {
