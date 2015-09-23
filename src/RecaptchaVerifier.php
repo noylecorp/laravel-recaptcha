@@ -31,12 +31,16 @@ class RecaptchaVerifier
      *
      * @return bool
      */
-    public function verify($response)
+    public function verify($response, $remoteip = null)
     {
         $payload = [
             'secret' => $this->secretKey,
             'response' => $response
         ];
+
+        if ($remoteip) {
+            $payload['remoteip'] = $remoteip;
+        }
 
         $ch = curl_init();
 

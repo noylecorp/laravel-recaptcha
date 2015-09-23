@@ -20,7 +20,7 @@ class RecaptchaServiceProvider extends ServiceProvider
         $this->addMacros();
 
         $this->app['validator']->extend('recaptcha', function ($attribute, $value, $parameters) {
-            return app('recaptcha')->verify($value);
+            return app('recaptcha')->verify($value, app('request')->ip());
         });
     }
 
