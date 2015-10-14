@@ -71,6 +71,11 @@ Or, if you don't want to use any of those helper functions, you can use `recaptc
 
     <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key() }}"></div>
 
+Finally, if you need to support users without JavaScript, you can also insert a <noscript> version of the widget:
+
+    {!! recaptcha() !!}
+    {!! recaptcha_noscript() !!}
+
 ### Validating reCAPTCHA responses
 
 The simplest way to validate a reCAPTCHA field is by using the added `recaptcha` validation rule:
