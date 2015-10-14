@@ -7,6 +7,13 @@ if (! function_exists('recaptcha')) {
     }
 }
 
+if (! function_exists('recaptcha_noscript')) {
+    function recaptcha_noscript()
+    {
+        return app('recaptcha_builder')->noscript();
+    }
+}
+
 if (! function_exists('recaptcha_script')) {
     function recaptcha_script()
     {

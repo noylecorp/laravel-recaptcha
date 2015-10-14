@@ -14,6 +14,13 @@ class RecaptchaBuilder
     protected $html;
 
     /**
+     * Url for the JS api
+     *
+     * @var string
+     */
+    protected $jsApi = 'https://www.google.com/recaptcha/api.js';
+
+    /**
      * The reCAPTCHA widget class
      *
      * @var string
@@ -84,6 +91,20 @@ class RecaptchaBuilder
     }
 
     /**
+     * Create <noscript> widget
+     *
+     * @return string
+     */
+    public function noscript()
+    {
+        return '<noscript>'
+              .'<iframe src="https://www.google.com/recaptcha/api/fallback?k='.$this->siteKey.'" frameborder="0" scrolling="no" style="width: 302px; height:422px; border-style: none; display: block;"></iframe>'
+              .'<textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 302px; height: 40px;"></textarea>'
+              .'<noscript>'.PHP_EOL
+        ;
+    }
+
+    /**
      * Create <script> tag for a reCAPTCHA widget
      *
      * @param  array $options
@@ -92,7 +113,7 @@ class RecaptchaBuilder
      */
     public function script()
     {
-        return $this->html->script('https://www.google.com/recaptcha/api.js');
+        return $this->html->script($this->jsApi);
     }
 
     /**

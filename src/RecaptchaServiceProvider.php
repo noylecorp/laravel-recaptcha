@@ -51,6 +51,10 @@ class RecaptchaServiceProvider extends ServiceProvider
             return recaptcha();
         });
 
+        $this->app['form']->macro('recaptcha_noscript', function() {
+            return recaptcha_noscript();
+        });
+
         $this->app['form']->macro('recaptcha_script', function() {
             return recaptcha_script();
         });
