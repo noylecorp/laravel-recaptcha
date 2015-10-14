@@ -100,7 +100,7 @@ class RecaptchaBuilder
         return '<noscript>'
               .'<iframe src="https://www.google.com/recaptcha/api/fallback?k='.$this->siteKey.'" frameborder="0" scrolling="no" style="width: 302px; height:422px; border-style: none; display: block;"></iframe>'
               .'<textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 302px; height: 40px;"></textarea>'
-              .'<noscript>'.PHP_EOL
+              .'</noscript>'.PHP_EOL
         ;
     }
 

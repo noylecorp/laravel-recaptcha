@@ -51,7 +51,7 @@ class RecaptchaBuilderTest extends PHPUnit_Framework_TestCase
     public function testNoScript()
     {
         $noscript = $this->recaptchaBuilder->noscript();
-        $this->assertEquals('<noscript><iframe src="https://www.google.com/recaptcha/api/fallback?k=my-site-key" frameborder="0" scrolling="no" style="width: 302px; height:422px; border-style: none; display: block;"></iframe><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 302px; height: 40px;"></textarea><noscript>'.PHP_EOL, $noscript);
+        $this->assertEquals('<noscript><iframe src="https://www.google.com/recaptcha/api/fallback?k=my-site-key" frameborder="0" scrolling="no" style="width: 302px; height:422px; border-style: none; display: block;"></iframe><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 302px; height: 40px;"></textarea></noscript>'.PHP_EOL, $noscript);
     }
 
     public function testScript()
