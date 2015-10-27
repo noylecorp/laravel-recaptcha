@@ -61,7 +61,7 @@ If you need to render the `<script>` and `<div>` tags for the reCAPTCHA widget s
 
     {!! recaptcha_widget() !!}
 
-Need to support users without JavaScript? You can also insert a <noscript> fallback:
+Need to support users without JavaScript? You can also insert a `<noscript>` fallback:
 
     {!! recaptcha() !!}
     {!! recaptcha_noscript() !!}
