@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/noylecorp/laravel-recaptcha.svg)](https://travis-ci.org/noylecorp/laravel-recaptcha)
 
-# laravel-recaptcha
+# Laravel Recaptcha
 
 Laravel 5.1 package for Google reCAPTCHA, providing helper functions for creating reCAPTCHA fields and a service for validating responses.
 
@@ -8,11 +8,7 @@ Laravel 5.1 package for Google reCAPTCHA, providing helper functions for creatin
 
 ## Installation
 
-`noylecorp/laravel-recaptcha` requires the `laravelcollective/html` package. [Head on over to their site](http://laravelcollective.com/docs/5.1/html) for documentation on getting it installed.
-
-You'll also need to [sign up for a reCAPTCHA key pair](https://www.google.com/recaptcha/admin) in order to finish installation and start using this package.
-
-Once those tasks are completed, install `noylecorp/laravel-recaptcha` with composer:
+Install Laravel Recaptcha with composer:
 
     composer require noylecorp/laravel-recaptcha
 
@@ -32,11 +28,13 @@ The file `recaptcha.php` gets copied into your configuration directory. The fina
     RECAPTCHA_SITE_KEY=your-site-key
     RECAPTCHA_SECRET_KEY=your-secret-key
 
+If you don't have reCAPTCHA keys you can signs up for a pair [here](https://www.google.com/recaptcha/admin).
+
 ## Usage
 
 ### Creating a reCAPTCHA widget
 
-You can easily create reCAPTCHA widgets using the `recaptcha()` helper function:
+Easily create reCAPTCHA widgets using the `recaptcha()` helper function:
 
     {!! recaptcha() !!}
 
@@ -45,11 +43,11 @@ You can easily create reCAPTCHA widgets using the `recaptcha()` helper function:
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <div class="g-recaptcha" data-sitekey="my-site-key"></div>
 
-You can also pass in HTML attributes:
+You can also pass in HTML attributes...
 
     {!! recaptcha(['id' => 'myrecaptcha']) !!}
 
-Or any of [reCAPTCHA's available options](https://developers.google.com/recaptcha/docs/display#render_param):
+...or any of [reCAPTCHA's available options](https://developers.google.com/recaptcha/docs/display#render_param):
 
     {!! recaptcha(['theme' => 'dark']) !!}
 
@@ -63,18 +61,18 @@ If you need to render the `<script>` and `<div>` tags for the reCAPTCHA widget s
 
     {!! recaptcha_widget() !!}
 
-All three functions, `recaptcha()`, `recaptcha_script()`, and `recaptcha_widget()`, can also be accessed through the `Form` facade:
+Need to support users without JavaScript? You can also insert a <noscript> fallback:
 
-    {!! Form::recaptcha() !!}
+    {!! recaptcha() !!}
+    {!! recaptcha_noscript() !!}
 
 Or, if you don't want to use any of those helper functions, you can use `recaptcha_site_key()` to grab the site key for your own custom markup:
 
     <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key() }}"></div>
 
-Finally, if you need to support users without JavaScript, you can also insert a <noscript> version of the widget:
+Finally, if you have [LaravelCollective Html](http://laravelcollective.com/docs/5.1/html) installed, all helper functions can also be accessed through the `Form` facade:
 
-    {!! recaptcha() !!}
-    {!! recaptcha_noscript() !!}
+    {!! Form::recaptcha() !!}
 
 ### Validating reCAPTCHA responses
 

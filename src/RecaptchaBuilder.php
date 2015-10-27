@@ -68,8 +68,7 @@ class RecaptchaBuilder
 
         if (isset($options['class'])) {
             $options['class'] .= ' '.$this->recaptchaClass;
-        }
-        else {
+        } else {
             $options['class'] = $this->recaptchaClass;
         }
 
@@ -125,7 +124,7 @@ class RecaptchaBuilder
      */
     public function renameOptions(array &$options)
     {
-        foreach($options as $k => $v) {
+        foreach ($options as $k => $v) {
             if (in_array($k, $this->tagAttributes)) {
                 $options['data-'.$k] = $v;
                 unset($options[$k]);

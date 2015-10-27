@@ -2,6 +2,7 @@
 
 namespace Noylecorp\Recaptcha;
 
+use Collective\Html\HtmlBuilder;
 use Illuminate\Support\ServiceProvider;
 
 class RecaptchaServiceProvider extends ServiceProvider
@@ -17,7 +18,9 @@ class RecaptchaServiceProvider extends ServiceProvider
             __DIR__.'/../config/recaptcha.php' => config_path('recaptcha.php'),
         ]);
 
-        $this->addMacros();
+        if ($this->app->bound('form')) {
+            $this->registerMacros();
+        }
 
         $this->app['validator']->extend('recaptcha', function ($attribute, $value, $parameters) {
             return app('recaptcha')->verify($value, app('request')->ip());
@@ -31,11 +34,17 @@ class RecaptchaServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('recaptcha_builder', function($app) {
-            return new RecaptchaBuilder($app['config']['recaptcha.site_key'], $app['html']);
+        $this->app->singleton('recaptcha_builder', function ($app) {
+            if ($this->app->bound('html')) {
+                $html = $app['html'];
+            } else {
+                $html = new HtmlBuilder($app['url']);
+            }
+
+            return new RecaptchaBuilder($app['config']['recaptcha.site_key'], $html);
         });
 
-        $this->app->singleton('recaptcha', function($app) {
+        $this->app->singleton('recaptcha', function ($app) {
             return new RecaptchaVerifier($app['config']['recaptcha.secret_key']);
         });
     }
@@ -45,21 +54,21 @@ class RecaptchaServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function addMacros()
+    protected function registerMacros()
     {
-        $this->app['form']->macro('recaptcha', function() {
+        $this->app['form']->macro('recaptcha', function () {
             return recaptcha();
         });
 
-        $this->app['form']->macro('recaptcha_noscript', function() {
+        $this->app['form']->macro('recaptcha_noscript', function () {
             return recaptcha_noscript();
         });
 
-        $this->app['form']->macro('recaptcha_script', function() {
+        $this->app['form']->macro('recaptcha_script', function () {
             return recaptcha_script();
         });
 
-        $this->app['form']->macro('recaptcha_widget', function(array $options = []) {
+        $this->app['form']->macro('recaptcha_widget', function (array $options = []) {
             return recaptcha_widget($options);
         });
     }
