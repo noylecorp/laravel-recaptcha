@@ -27,7 +27,7 @@ class RecaptchaVerifierTest extends PHPUnit_Framework_TestCase
 
         $payload = [];
 
-        foreach($captchaForm->getElementsByTagName('input') as $input) {
+        foreach ($captchaForm->getElementsByTagName('input') as $input) {
             if ('c' == $input->getAttribute('name')) {
                 $payload['c'] = $input->getAttribute('value');
                 break;
@@ -46,7 +46,7 @@ class RecaptchaVerifierTest extends PHPUnit_Framework_TestCase
         $captchaResponse = new DOMDocument();
         $captchaResponse->loadHTML($result);
 
-        foreach($captchaResponse->getElementsByTagName('textarea') as $textarea) {
+        foreach ($captchaResponse->getElementsByTagName('textarea') as $textarea) {
             return $textarea->nodeValue;
         }
     }

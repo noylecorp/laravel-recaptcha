@@ -4,7 +4,6 @@ use Collective\Html\HtmlBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\RouteCollection;
 use Illuminate\Routing\UrlGenerator;
-
 use Noylecorp\Recaptcha\RecaptchaBuilder;
 
 class RecaptchaBuilderTest extends PHPUnit_Framework_TestCase
